@@ -1,15 +1,34 @@
 var http = require('http');
+var fs = require('fs');
+
 var server = http.createServer(function(request, response){
-    response.writeHead(200, {"Content-Type": "text/html"});
     if(request.url == "/"){
-        response.write("<h1>Página principal</h1>");
-    }else if(request.url == "/bemvindo"){
-        response.write("<h1>Bem-vindo :)</h1>");
+        fs.readFile(__dirname + '/artigos.html', function(err, html){
+            response.writeHeader(200, {'Content-Type': 'text/html'});
+            response.write(err);
+            response.end(html);
+        });
+    }else if(request.url == "/artigos"){
+        fs.readFile(__dirname + '/artigos.html', function(err, html){
+            response.writeHeader(200, {'Content-Type': 'text/html'});
+            response.write(err);
+            response.end(html);
+        });
+    }else if(request.url == "/contato"){
+        fs.readFile(__dirname + '/contato.html', function(err, html){
+            response.writeHeader(200, {'Content-Type': 'text/html'});
+            response.write(err);
+            response.end(html);
+        });
     }else{
-        response.write("<h1>Página não encontrada :(</h1>");
+        fs.readFile(__dirname + '/erro.html', function(err, html){
+            response.writeHeader(200, {'Content-Type': 'text/html'});
+            response.write(err);
+            response.end(html);
+        });
     }
     response.end();
 });
 server.listen(3000, function(){
-    console.log('Servidor rodando!');
+    console.log('Servidor rodando');
 });
